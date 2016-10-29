@@ -7,8 +7,7 @@ ENV SYSINTERNALS_DOWNLOAD_URL "https://download.sysinternals.com/files/Sysintern
 # then using .NET Core's ZipFile.ExtractToDirectory to extract the downloaded zip file
 # then removing the zip file to reduce image layer size
 RUN powershell.exe -Command ; \
-    $handler = New-Object System.Net.Http.HttpClientHandler ; \
-    $client = New-Object System.Net.Http.HttpClient($handler) ; \
+    $client = New-Object System.Net.Http.HttpClient ; \
     $client.Timeout = New-Object System.TimeSpan(0, 30, 0) ; \
     $responseMsg = $client.GetAsync([System.Uri]::new('%SYSINTERNALS_DOWNLOAD_URL%')) ; \
     $responseMsg.Wait() ; \
