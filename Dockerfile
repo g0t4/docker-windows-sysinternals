@@ -7,14 +7,9 @@ ENV SYSINTERNALS_DOWNLOAD_URL "https://download.sysinternals.com/files/Sysintern
 # then using .NET Core's ZipFile.ExtractToDirectory to extract the downloaded zip file
 # then removing the zip file to reduce image layer size
 RUN powershell.exe -Command ; \
-    $responseMsg = (New-Object System.Net.Http.HttpClient).GetAsync('%SYSINTERNALS_DOWNLOAD_URL%') ; \
-    $responseMsg.Wait() ; \
-    $downloadedFileStream = [System.IO.FileStream]::new('c:\sysinternals.zip', [System.IO.FileMode]::Create, [System.IO.FileAccess]::Write) ; \
-    $response = $responseMsg.Result ; \
-    $copyStreamOp = $response.Content.CopyToAsync($downloadedFileStream) ; \
-    $copyStreamOp.Wait() ; \
-    $downloadedFileStream.Close() ; \
-    [System.IO.Compression.ZipFile]::ExtractToDirectory('c:\sysinternals.zip','c:\sysinternals-nano') ; \
-    Remove-Item c:\sysinternals.zip -Force
+    $responseMsg = (New-Object System.Net.Http.HttpClient).GetAsync('%SYSINTERNALS_DOWNLOAD_URL%'); \
+    $stream = $responseMsg.Result.Content.ReadAsStreamAsync().Result; \
+    $archive = New-Object System.IO.Compression.ZipArchive($stream); \
+    [System.IO.Compression.ZipFileExtensions]::ExtractToDirectory($archive, 'c:\sysinternals-nano');
 
 WORKDIR C:\\sysinternals-nano
