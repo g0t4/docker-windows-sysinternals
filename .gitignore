@@ -254,3 +254,6 @@ paket-files/
 # vim
 *.swp
 
+# macOS
+.DS_Store
+
