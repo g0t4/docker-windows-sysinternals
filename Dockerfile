@@ -10,8 +10,7 @@ RUN powershell.exe -Command ; \
     $handler = New-Object System.Net.Http.HttpClientHandler ; \
     $client = New-Object System.Net.Http.HttpClient($handler) ; \
     $client.Timeout = New-Object System.TimeSpan(0, 30, 0) ; \
-    $cancelTokenSource = [System.Threading.CancellationTokenSource]::new() ; \
-    $responseMsg = $client.GetAsync([System.Uri]::new('%SYSINTERNALS_DOWNLOAD_URL%'), $cancelTokenSource.Token) ; \
+    $responseMsg = $client.GetAsync([System.Uri]::new('%SYSINTERNALS_DOWNLOAD_URL%')) ; \
     $responseMsg.Wait() ; \
     $downloadedFileStream = [System.IO.FileStream]::new('c:\sysinternals.zip', [System.IO.FileMode]::Create, [System.IO.FileAccess]::Write) ; \
     $response = $responseMsg.Result ; \
@@ -22,4 +21,3 @@ RUN powershell.exe -Command ; \
     Remove-Item c:\sysinternals.zip -Force
 
 WORKDIR C:\\sysinternals-nano
-
