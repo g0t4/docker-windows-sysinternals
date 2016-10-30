@@ -3,7 +3,7 @@
 Docker images with sysinternals baked in for spelunking what's going on inside windows containers.
 
 Two versions of this image: 
-- nanoserver: `weshigbee/sysinternals` 
+- nanoserver: `weshigbee/sysinternals` or `weshigbee/sysinternals:nanoserver`
 - windowsservercore: `weshigbee/sysinternals:windowsservercore`
 
 # Exercises
